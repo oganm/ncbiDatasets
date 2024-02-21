@@ -1,0 +1,23 @@
+---
+title: "Readme"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+devtools::load_all()
+```
+
+This is a very simple wrapper around the NCBI dataset command line
+tools that just executes a desired command and reads the data into R.
+
+```{r}
+orthologues = datasets('download',"gene gene-id 59272 --ortholog all")
+ls(orthologues)
+
+# gene ids of the orthologues
+orthologues$data_report %>% purrr::map_chr('geneId') %>% head
+
+# rna sequences imported as ape objects
+orthologues$rna
+```
