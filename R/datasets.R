@@ -44,9 +44,9 @@ datasets = function(do = c('summary','download'),args,file = NULL){
         out <- lapply(files,function(x){
             ext = tools::file_ext(x)
             if (ext == 'jsonl'){
-                return(readLines(x) %>% lapply(jsonlite::fromJSON,simplifyVector = FALSE))
+                return(readLines(x) %>% lapply(jsonlite::fromJSON,simplifyVector = FALSE) %>% suppressWarnings())
             } else if(ext == 'json'){
-                return(readLines(x) %>% jsonlite::fromJSON(simplifyVector = FALSE))
+                return(readLines(x) %>% jsonlite::fromJSON(simplifyVector = FALSE) %>% suppressWarnings)
             } else if(ext =='faa'){
                 return(ape::read.FASTA(x,type = "AA"))
             } else if(ext =='fna'){
